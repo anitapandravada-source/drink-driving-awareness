@@ -3,383 +3,244 @@
 <head>
   <title>Drink Driving Awareness Simulator</title>
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #07111f;
-      color: white;
-      text-align: center;
-    }
-
-    .container {
-      max-width: 950px;
-      margin: auto;
-      padding: 25px;
-    }
-
-    .card {
-      background: #111c2e;
-      border-radius: 22px;
-      padding: 22px;
-      margin: 18px 0;
-      border: 1px solid #243246;
-    }
-
-    select, input, button {
-      padding: 12px;
-      margin: 8px;
-      border-radius: 12px;
-      border: none;
-      font-size: 16px;
-    }
-
-    button {
-      background: #38bdf8;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .danger {
-      background: #dc2626;
-      color: white;
-    }
-
-    .road {
-      position: relative;
-      height: 420px;
-      max-width: 340px;
-      margin: 20px auto;
-      background: #475569;
-      border-left: 8px solid #cbd5e1;
-      border-right: 8px solid #cbd5e1;
-      overflow: hidden;
-      border-radius: 18px;
-    }
-
-    .line {
-      position: absolute;
-      left: 50%;
-      width: 10px;
-      height: 55px;
-      background: white;
-      border-radius: 6px;
-      transform: translateX(-50%);
-      animation: moveLine 1s linear infinite;
-    }
-
-    .line:nth-child(1) { top: -60px; }
-    .line:nth-child(2) { top: 40px; }
-    .line:nth-child(3) { top: 140px; }
-    .line:nth-child(4) { top: 240px; }
-    .line:nth-child(5) { top: 340px; }
-
-    @keyframes moveLine {
-      from { transform: translate(-50%, 0); }
-      to { transform: translate(-50%, 100px); }
-    }
-
-    .car {
-      position: absolute;
-      bottom: 30px;
-      left: 50%;
-      width: 62px;
-      height: 105px;
-      background: #38bdf8;
-      border: 4px solid #bfdbfe;
-      border-radius: 18px;
-      transform: translateX(-50%);
-      transition: left 0.18s ease, transform 0.18s ease;
-    }
-
-    .car:before {
-      content: "";
-      position: absolute;
-      top: 14px;
-      left: 13px;
-      width: 36px;
-      height: 22px;
-      background: rgba(15, 23, 42, 0.65);
-      border-radius: 8px;
-    }
-
-    .brake {
-      display: none;
-      position: absolute;
-      top: 25px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #dc2626;
-      color: white;
-      padding: 14px 22px;
-      border-radius: 15px;
-      font-weight: bold;
-      animation: pulse 0.6s infinite;
-      z-index: 10;
-    }
-
-    @keyframes pulse {
-      50% { opacity: 0.5; }
-    }
-
-    .stats {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .stat {
-      background: #07111f;
-      padding: 15px;
-      border-radius: 16px;
-      min-width: 140px;
-    }
-
-    .warning {
-      background: #78350f;
-      color: #fef3c7;
-    }
-
-    .controls button {
-      min-width: 95px;
-    }
-
-    .blur-high {
-      filter: blur(2px);
-    }
-
-    .blur-severe {
-      filter: blur(4px);
-    }
-
-    @media (max-width: 600px) {
-      .container {
-        padding: 12px;
-      }
-
-      h1 {
-        font-size: 28px;
-      }
-
-      .road {
-        height: 380px;
-      }
-    }
+    body{margin:0;font-family:Arial;background:#07111f;color:white;text-align:center}
+    .container{max-width:950px;margin:auto;padding:25px}
+    .card{background:#111c2e;border-radius:22px;padding:22px;margin:18px 0;border:1px solid #243246}
+    select,input,button{padding:12px;margin:8px;border-radius:12px;border:none;font-size:16px}
+    button{background:#38bdf8;cursor:pointer;font-weight:bold}
+    .danger{background:#dc2626;color:white}
+    .road{position:relative;height:420px;max-width:340px;margin:20px auto;background:#475569;border-left:8px solid #cbd5e1;border-right:8px solid #cbd5e1;overflow:hidden;border-radius:18px}
+    .line{position:absolute;left:50%;width:10px;height:55px;background:white;border-radius:6px;transform:translateX(-50%);animation:moveLine 1s linear infinite}
+    .line:nth-child(1){top:-60px}.line:nth-child(2){top:40px}.line:nth-child(3){top:140px}.line:nth-child(4){top:240px}.line:nth-child(5){top:340px}
+    @keyframes moveLine{from{transform:translate(-50%,0)}to{transform:translate(-50%,100px)}}
+    .car,.obstacle{position:absolute;width:62px;height:105px;border-radius:18px;border:4px solid #bfdbfe}
+    .car{bottom:30px;left:50%;background:#38bdf8;transform:translateX(-50%);transition:left .18s ease,transform .18s ease}
+    .obstacle{top:-120px;background:#ef4444}
+    .car:before,.obstacle:before{content:"";position:absolute;top:14px;left:13px;width:36px;height:22px;background:rgba(15,23,42,.65);border-radius:8px}
+    .brake{display:none;position:absolute;top:25px;left:50%;transform:translateX(-50%);background:#dc2626;color:white;padding:14px 22px;border-radius:15px;font-weight:bold;animation:pulse .6s infinite;z-index:10}
+    @keyframes pulse{50%{opacity:.5}}
+    .stats{display:flex;justify-content:center;flex-wrap:wrap;gap:12px}
+    .stat{background:#07111f;padding:15px;border-radius:16px;min-width:130px}
+    .warning{background:#78350f;color:#fef3c7}
+    .crash{display:none;background:#dc2626;color:white;padding:15px;border-radius:15px;font-size:22px;font-weight:bold;margin:15px}
+    .blur-high{filter:blur(2px)} .blur-severe{filter:blur(4px)}
+    @media(max-width:600px){.container{padding:12px}h1{font-size:28px}.road{height:380px}}
   </style>
 </head>
 
 <body>
-  <div class="container">
-    <h1>Drink-Driving Awareness Simulator</h1>
-    <p>
-      Educational app showing how alcohol can affect reaction time,
-      steering, braking and vision.
-    </p>
+<div class="container">
+  <h1>Drink-Driving Awareness Simulator</h1>
+  <p>Educational app showing how alcohol can affect reaction time, steering, braking and vision.</p>
 
-    <div class="card">
-      <h2>1. Choose drink</h2>
+  <div class="card">
+    <h2>1. Choose drink</h2>
+    <select id="drink" onchange="updateDrink()">
+      <option value="4.8,375">Beer - 375ml</option>
+      <option value="13.5,150">Wine - 150ml</option>
+      <option value="40,30">Whisky - 30ml</option>
+      <option value="40,30">Vodka - 30ml</option>
+      <option value="18,180">Cocktail - 180ml</option>
+    </select><br>
+    <label>Amount ml:</label><input id="ml" type="number" value="375">
+    <label>Alcohol %:</label><input id="abv" type="number" value="4.8"><br>
+    <button onclick="calculate()">Calculate Impairment</button>
+  </div>
 
-      <select id="drink" onchange="updateDrink()">
-        <option value="4.8,375">Beer - 375ml</option>
-        <option value="13.5,150">Wine - 150ml</option>
-        <option value="40,30">Whisky - 30ml</option>
-        <option value="40,30">Vodka - 30ml</option>
-        <option value="18,180">Cocktail - 180ml</option>
-      </select>
+  <div class="card">
+    <h2>2. Result</h2>
+    <h3 id="standardDrinks">Standard drinks: 0.00</h3>
+    <h3 id="level">Impairment level: Low</h3>
+    <p id="message">Even small amounts can affect judgement and reaction time.</p>
+  </div>
 
-      <br>
+  <div class="card">
+    <h2>3. Driving Simulation</h2>
 
-      <label>Amount ml:</label>
-      <input id="ml" type="number" value="375">
-
-      <label>Alcohol %:</label>
-      <input id="abv" type="number" value="4.8">
-
-      <br>
-      <button onclick="calculate()">Calculate Impairment</button>
+    <div class="stats">
+      <div class="stat"><b>Speed</b><p id="speed">60 km/h</p></div>
+      <div class="stat"><b>Reaction delay</b><p id="delay">+200 ms</p></div>
+      <div class="stat"><b>Reaction</b><p id="reaction">---</p></div>
+      <div class="stat"><b>Score</b><p id="score">0</p></div>
+      <div class="stat"><b>Lives</b><p id="lives">3</p></div>
     </div>
 
-    <div class="card">
-      <h2>2. Result</h2>
-      <h3 id="standardDrinks">Standard drinks: 0.00</h3>
-      <h3 id="level">Impairment level: Low</h3>
-      <p id="message">Even small amounts can affect judgement and reaction time.</p>
+    <div id="crashMessage" class="crash">CRASH! Alcohol slows your reaction.</div>
+
+    <div id="road" class="road">
+      <div id="brake" class="brake">BRAKE! Tap me</div>
+      <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+      <div id="obstacle" class="obstacle"></div>
+      <div id="car" class="car"></div>
     </div>
 
-    <div class="card">
-      <h2>3. Driving Simulation</h2>
-
-      <div class="stats">
-        <div class="stat">
-          <b>Speed</b>
-          <p id="speed">60 km/h</p>
-        </div>
-        <div class="stat">
-          <b>Reaction delay</b>
-          <p id="delay">+200 ms</p>
-        </div>
-        <div class="stat">
-          <b>Last brake reaction</b>
-          <p id="reaction">---</p>
-        </div>
-      </div>
-
-      <div id="road" class="road">
-        <div id="brake" class="brake">BRAKE! Tap me</div>
-        <div class="line"></div>
-        <div class="line"></div>
-        <div class="line"></div>
-        <div class="line"></div>
-        <div class="line"></div>
-        <div id="car" class="car"></div>
-      </div>
-
-      <div class="controls">
-        <button onclick="steer(-1)">← Left</button>
-        <button onclick="startGame()">Start</button>
-        <button onclick="steer(1)">Right →</button>
-        <button class="danger" onclick="brake()">Brake</button>
-      </div>
-
-      <p>Tip: Higher alcohol amount makes the car drift more and reaction time slower.</p>
-    </div>
-
-    <div class="card warning">
-      <h2>Safety Message</h2>
-      <p>
-        This is only an educational simulator. It must never be used to decide
-        whether someone is safe to drive. Choose a taxi, rideshare, public
-        transport, or a sober driver.
-      </p>
+    <div>
+      <button onclick="steer(-1)">← Left</button>
+      <button onclick="startGame()">Start</button>
+      <button onclick="steer(1)">Right →</button>
+      <button class="danger" onclick="brake()">Brake</button>
+      <button onclick="restartGame()">Restart</button>
     </div>
   </div>
 
-  <script>
-    let impairment = 0.15;
-    let carPosition = 50;
-    let speed = 60;
-    let gameStarted = false;
-    let promptTime = null;
-    let driftTimer = null;
-    let brakeTimer = null;
+  <div class="card warning">
+    <h2>Safety Message</h2>
+    <p>This is only an educational simulator. It must never be used to decide whether someone is safe to drive.</p>
+  </div>
+</div>
 
-    function updateDrink() {
-      const value = document.getElementById("drink").value.split(",");
-      document.getElementById("abv").value = value[0];
-      document.getElementById("ml").value = value[1];
-      calculate();
+<script>
+let impairment=0.15, carPosition=50, obstaclePosition=30, obstacleTop=-120;
+let speed=60, score=0, lives=3, gameStarted=false, promptTime=null;
+let driftTimer=null, brakeTimer=null, obstacleTimer=null, scoreTimer=null;
+
+function updateDrink(){
+  const value=document.getElementById("drink").value.split(",");
+  document.getElementById("abv").value=value[0];
+  document.getElementById("ml").value=value[1];
+  calculate();
+}
+
+function calculate(){
+  const ml=Number(document.getElementById("ml").value);
+  const abv=Number(document.getElementById("abv").value);
+  const standardDrinks=(ml/1000)*abv*0.789;
+  let label="Low", message="Even small amounts can affect judgement and reaction time.";
+
+  if(standardDrinks<1){impairment=0.15;label="Low";}
+  else if(standardDrinks<2){impairment=0.35;label="Moderate";message="Reaction time and steering control may be noticeably worse.";}
+  else if(standardDrinks<4){impairment=0.65;label="High";message="Strong impairment: delayed braking, blurred vision and poor lane control.";}
+  else{impairment=0.9;label="Severe";message="Very dangerous impairment. Do not drive under any circumstances.";}
+
+  document.getElementById("standardDrinks").innerText="Standard drinks: "+standardDrinks.toFixed(2);
+  document.getElementById("level").innerText="Impairment level: "+label;
+  document.getElementById("message").innerText=message;
+  document.getElementById("delay").innerText="+"+Math.round(200+impairment*900)+" ms";
+
+  const road=document.getElementById("road");
+  road.classList.remove("blur-high","blur-severe");
+  if(impairment>=0.65&&impairment<0.9)road.classList.add("blur-high");
+  if(impairment>=0.9)road.classList.add("blur-severe");
+}
+
+function startGame(){
+  if(gameStarted)return;
+  gameStarted=true;
+  calculate();
+
+  driftTimer=setInterval(()=>{
+    carPosition+=(Math.random()-0.5)*impairment*9;
+    carPosition=Math.max(18,Math.min(82,carPosition));
+    updateCar();
+    speed+=(Math.random()-0.45)*(1+impairment*5);
+    speed=Math.max(20,Math.min(115,speed));
+    document.getElementById("speed").innerText=Math.round(speed)+" km/h";
+  },180);
+
+  brakeTimer=setInterval(showBrakePrompt,4500);
+
+  obstacleTimer=setInterval(()=>{
+    obstacleTop+=8+impairment*8;
+    if(obstacleTop>430){
+      obstacleTop=-120;
+      obstaclePosition=20+Math.random()*60;
     }
+    updateObstacle();
+    checkCrash();
+  },70);
 
-    function calculate() {
-      const ml = Number(document.getElementById("ml").value);
-      const abv = Number(document.getElementById("abv").value);
+  scoreTimer=setInterval(()=>{
+    score++;
+    document.getElementById("score").innerText=score;
+  },500);
+}
 
-      const standardDrinks = (ml / 1000) * abv * 0.789;
+function steer(direction){
+  const steeringPower=4-impairment*2;
+  carPosition+=direction*steeringPower;
+  carPosition=Math.max(18,Math.min(82,carPosition));
+  updateCar();
+}
 
-      let label = "Low";
-      let message = "Even small amounts can affect judgement and reaction time.";
+function updateCar(){
+  const car=document.getElementById("car");
+  car.style.left=carPosition+"%";
+  car.style.transform="translateX(-50%) rotate("+((carPosition-50)/4)+"deg)";
+}
 
-      if (standardDrinks < 1) {
-        impairment = 0.15;
-        label = "Low";
-      } else if (standardDrinks < 2) {
-        impairment = 0.35;
-        label = "Moderate";
-        message = "Reaction time and steering control may be noticeably worse.";
-      } else if (standardDrinks < 4) {
-        impairment = 0.65;
-        label = "High";
-        message = "Strong impairment: delayed braking, blurred vision and poor lane control.";
-      } else {
-        impairment = 0.9;
-        label = "Severe";
-        message = "Very dangerous impairment. Do not drive under any circumstances.";
+function updateObstacle(){
+  const obstacle=document.getElementById("obstacle");
+  obstacle.style.left=obstaclePosition+"%";
+  obstacle.style.top=obstacleTop+"px";
+  obstacle.style.transform="translateX(-50%)";
+}
+
+function checkCrash(){
+  if(obstacleTop>270 && obstacleTop<390){
+    const distance=Math.abs(carPosition-obstaclePosition);
+    if(distance<14){
+      lives--;
+      document.getElementById("lives").innerText=lives;
+      document.getElementById("crashMessage").style.display="block";
+      obstacleTop=-120;
+      obstaclePosition=20+Math.random()*60;
+
+      setTimeout(()=>document.getElementById("crashMessage").style.display="none",1200);
+
+      if(lives<=0){
+        endGame();
       }
-
-      document.getElementById("standardDrinks").innerText =
-        "Standard drinks: " + standardDrinks.toFixed(2);
-
-      document.getElementById("level").innerText =
-        "Impairment level: " + label;
-
-      document.getElementById("message").innerText = message;
-
-      const delay = Math.round(200 + impairment * 900);
-      document.getElementById("delay").innerText = "+" + delay + " ms";
-
-      const road = document.getElementById("road");
-      road.classList.remove("blur-high", "blur-severe");
-
-      if (impairment >= 0.65 && impairment < 0.9) {
-        road.classList.add("blur-high");
-      }
-
-      if (impairment >= 0.9) {
-        road.classList.add("blur-severe");
-      }
     }
+  }
+}
 
-    function startGame() {
-      if (gameStarted) return;
+function showBrakePrompt(){
+  document.getElementById("brake").style.display="block";
+  promptTime=Date.now();
+}
 
-      gameStarted = true;
-      calculate();
+function brake(){
+  if(!promptTime)return;
+  const delay=Math.round(200+impairment*900);
+  const reactionTime=Date.now()-promptTime+delay;
+  document.getElementById("reaction").innerText=reactionTime+" ms";
+  document.getElementById("brake").style.display="none";
+  speed=Math.max(20,speed-18);
+  document.getElementById("speed").innerText=Math.round(speed)+" km/h";
+  promptTime=null;
+}
 
-      driftTimer = setInterval(() => {
-        const drift = (Math.random() - 0.5) * impairment * 9;
-        carPosition += drift;
-        carPosition = Math.max(18, Math.min(82, carPosition));
-        updateCar();
+function endGame(){
+  clearInterval(driftTimer);
+  clearInterval(brakeTimer);
+  clearInterval(obstacleTimer);
+  clearInterval(scoreTimer);
+  gameStarted=false;
+  document.getElementById("crashMessage").innerText="GAME OVER! Final score: "+score;
+  document.getElementById("crashMessage").style.display="block";
+}
 
-        speed += (Math.random() - 0.45) * (1 + impairment * 5);
-        speed = Math.max(20, Math.min(115, speed));
-        document.getElementById("speed").innerText = Math.round(speed) + " km/h";
-      }, 180);
+function restartGame(){
+  clearInterval(driftTimer);
+  clearInterval(brakeTimer);
+  clearInterval(obstacleTimer);
+  clearInterval(scoreTimer);
+  carPosition=50; obstacleTop=-120; obstaclePosition=30;
+  speed=60; score=0; lives=3; gameStarted=false; promptTime=null;
+  document.getElementById("speed").innerText="60 km/h";
+  document.getElementById("score").innerText="0";
+  document.getElementById("lives").innerText="3";
+  document.getElementById("reaction").innerText="---";
+  document.getElementById("brake").style.display="none";
+  document.getElementById("crashMessage").style.display="none";
+  document.getElementById("crashMessage").innerText="CRASH! Alcohol slows your reaction.";
+  updateCar();
+  updateObstacle();
+}
 
-      brakeTimer = setInterval(() => {
-        showBrakePrompt();
-      }, 4500);
-    }
-
-    function steer(direction) {
-      const steeringPower = 4 - impairment * 2;
-      carPosition += direction * steeringPower;
-      carPosition = Math.max(18, Math.min(82, carPosition));
-      updateCar();
-    }
-
-    function updateCar() {
-      const car = document.getElementById("car");
-      car.style.left = carPosition + "%";
-      car.style.transform =
-        "translateX(-50%) rotate(" + ((carPosition - 50) / 4) + "deg)";
-    }
-
-    function showBrakePrompt() {
-      const brakeBox = document.getElementById("brake");
-      brakeBox.style.display = "block";
-      promptTime = Date.now();
-    }
-
-    function brake() {
-      if (!promptTime) return;
-
-      const delay = Math.round(200 + impairment * 900);
-      const reactionTime = Date.now() - promptTime + delay;
-
-      document.getElementById("reaction").innerText = reactionTime + " ms";
-      document.getElementById("brake").style.display = "none";
-
-      speed -= 18;
-      speed = Math.max(20, speed);
-      document.getElementById("speed").innerText = Math.round(speed) + " km/h";
-
-      promptTime = null;
-    }
-
-    document.getElementById("brake").onclick = brake;
-
-    calculate();
-  </script>
+document.getElementById("brake").onclick=brake;
+calculate();
+updateObstacle();
+</script>
 </body>
 </html>
